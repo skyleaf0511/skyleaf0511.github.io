@@ -10,13 +10,12 @@
 
     <!--Description-->
     
-        <meta name="description" content="ブログ開設の経緯会社を通してブログを始めるまでの経緯を説明します。
-まず、身になる勉強をするために、アウトプットを増やしたいと考えました。勉強内容の整理をして記事執筆を行うことで、以下のメリットが得られます。
+        <meta name="description" content="はじめに
+今回は「全シートCtrl + Home」をExcelマクロで自動化するまでの手順をマクロの基本操作から解説します。
+「全シートCtrl + Home」はExcelファイルを見る人のための配慮の1つです。
 
-文書作成、情報伝達の練習
-内容のより深い理解
-
-会社を通すことで、執筆内容の質を担保する">
+Exceマクロを使用するための準備
+Excelのブックで開発を有効にする※ 「ファイ">
     
 
     <!--Author-->
@@ -26,7 +25,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="ブログ開設の経緯"/>
+        <meta property="og:title" content="Excel VBAで「全シートCtrl + Home」を自動化する"/>
     
 
     <!--Open Graph Description-->
@@ -48,7 +47,7 @@
 
     <!-- Title -->
     
-    <title>ブログ開設の経緯 - SkyleafBlog</title>
+    <title>Excel VBAで「全シートCtrl + Home」を自動化する - SkyleafBlog</title>
 
     <!-- Tachyons Core CSS -->
     <link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
@@ -117,8 +116,8 @@
     <!-- Title -->
     <div class="w-100 mw8 center vh-40 dt">
         <div class="dtc v-mid white">
-            <h1 class="f1-l f2-m tc tc-m tl-ns">ブログ開設の経緯</h1>
-            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2021-01-15</p>
+            <h1 class="f1-l f2-m tc tc-m tl-ns">Excel VBAで「全シートCtrl + Home」を自動化する</h1>
+            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2021-02-03</p>
         </div>
     </div>
 
@@ -138,15 +137,70 @@
                     
 
                     <!-- Main Post Content -->
-                    <h2 id="ブログ開設の経緯"><a href="#ブログ開設の経緯" class="headerlink" title="ブログ開設の経緯"></a>ブログ開設の経緯</h2><p>会社を通してブログを始めるまでの経緯を説明します。</p>
-<p>まず、身になる勉強をするために、アウトプットを増やしたいと考えました。<br>勉強内容の整理をして記事執筆を行うことで、以下のメリットが得られます。</p>
-<ul>
-<li>文書作成、情報伝達の練習</li>
-<li>内容のより深い理解</li>
+                    <h2 id="はじめに"><a href="#はじめに" class="headerlink" title="はじめに"></a>はじめに</h2><ul>
+<li>今回は「全シートCtrl + Home」をExcelマクロで自動化するまでの手順をマクロの基本操作から解説します。</li>
+<li>「全シートCtrl + Home」はExcelファイルを見る人のための配慮の1つです。</li>
 </ul>
-<p>会社を通すことで、執筆内容の質を担保する必然性が生まれます。<br>編集担当者の目も通すので、フィードバックも貰えます。</p>
-<p>以上のことから、“読んでも書いても学びに繋がる”をコンセプトに、ブログ運営を始めます。</p>
-<p>社員M</p>
+<h2 id="Exceマクロを使用するための準備"><a href="#Exceマクロを使用するための準備" class="headerlink" title="Exceマクロを使用するための準備"></a>Exceマクロを使用するための準備</h2><ol>
+<li><p>Excelのブックで開発を有効にする<br>※ 「ファイル」タブ→「オプション」→「リボンのユーザー設定」から有効にできる</p>
+</li>
+<li><p>Alt + F11でVBAを開く</p>
+</li>
+<li><p>ツールのオプションで、「自動構文チェック」を外し、「変数の宣言を強制する」をチェック</p>
+</li>
+<li><p>挿入から標準モジュールを追加</p>
+</li>
+<li><p>標準モジュールに以下を記述</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Sub ctrlHome()</span><br><span class="line"></span><br><span class="line">End Sub</span><br></pre></td></tr></table></figure>
+<p>※End Subは「sub ctrlHome」と打ってEnterを押せば補完される</p>
+</li>
+</ol>
+<h2 id="Ctrl-Homeを実現するための準備"><a href="#Ctrl-Homeを実現するための準備" class="headerlink" title="Ctrl + Homeを実現するための準備"></a>Ctrl + Homeを実現するための準備</h2><ol>
+<li><p>Ctrl + Homeを実現する方法を調べる<br>※今回はまずExcelの機能を使って調べる</p>
+</li>
+<li><p>開発タブで「マクロの記録」を選択、必要事項を記入</p>
+</li>
+<li><p>ブックに戻り、新しいシートを作成し、開いておく</p>
+</li>
+<li><p>Ctrl + HomeとCtrl + pg upを手作業で行う</p>
+</li>
+<li><p>開発タブで「記録終了」を選択</p>
+</li>
+<li><p>VBAに戻り、記録されたコードを確認</p>
+</li>
+<li><p>手順10を参考にCtrl + Homeを実行するコードを手順5で記述したSubの中に書く<br>※ 最後に先頭のシートに戻る処理も書くと便利</p>
+</li>
+<li><p>F8でステップ実行（動作確認）</p>
+</li>
+<li><p>手順10とネット検索を頼りに全シートで手順11を実行するためのコードを書く</p>
+</li>
+</ol>
+<ul>
+<li>例<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Option Explicit</span><br><span class="line"></span><br><span class="line">Sub ctrlHome()</span><br><span class="line"></span><br><span class="line">Dim i As Integer</span><br><span class="line"></span><br><span class="line">    For i &#x3D; 1 To Sheets.Count</span><br><span class="line">        Sheets(i).Select</span><br><span class="line">        Range(&quot;A1&quot;).Select</span><br><span class="line">    Next</span><br><span class="line">    </span><br><span class="line">    Sheets(1).Select</span><br><span class="line">    </span><br><span class="line">End Sub</span><br></pre></td></tr></table></figure></li>
+<li>各記述の簡単な説明</li>
+</ul>
+<blockquote>
+<p>Option Explict<br>変数宣言の必須化（変数定義忘れを防ぐ）</p>
+</blockquote>
+<blockquote>
+<p>Dim i As Integer<br>変数iをInteger型で宣言する</p>
+</blockquote>
+<blockquote>
+<p>For i = 1 To Sheets.Count<br>Next<br>最後のシートまで繰り返す</p>
+</blockquote>
+<blockquote>
+<p>Sheets(1).Select<br>最初のシートを選択する</p>
+</blockquote>
+<ol start="10">
+<li><p>F8でステップ実行（動作確認）、問題なければF5で実行</p>
+</li>
+<li><p>ブックに戻り、「名前をつけて保存」からマクロ有効ブックを選択し、保存</p>
+</li>
+</ol>
+<h2 id="最後に"><a href="#最後に" class="headerlink" title="最後に"></a>最後に</h2><ul>
+<li>シンプルな記述でCtrl + Homeの自動化ができます。</li>
+<li>同様の手順で様々な操作が自動化できます。</li>
+</ul>
 
                     
                     <!-- Tags Bottom -->
