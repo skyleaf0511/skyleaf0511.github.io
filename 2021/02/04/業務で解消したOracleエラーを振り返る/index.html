@@ -10,13 +10,12 @@
 
     <!--Description-->
     
-        <meta name="description" content="ブログ開設の経緯会社を通してブログを始めるまでの経緯を説明します。
-まず、身になる勉強をするために、アウトプットを増やしたいと考えました。勉強内容の整理をして記事執筆を行うことで、以下のメリットが得られます。
+        <meta name="description" content="はじめに最近の業務で解消したOracleエラーを振り返ります。
+Oracleのバージョン12c
+エラーコードORA-00054
+詳細
 
-文書作成、情報伝達の練習
-内容のより深い理解
-
-会社を通すことで、執筆内容の質を担保する">
+ORA-00054: resource busy and acquire with NOWAIT specified or timeout expiredCause">
     
 
     <!--Author-->
@@ -26,7 +25,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="ブログ開設の経緯"/>
+        <meta property="og:title" content="業務で解消したOracleエラーを振り返る"/>
     
 
     <!--Open Graph Description-->
@@ -48,7 +47,7 @@
 
     <!-- Title -->
     
-    <title>ブログ開設の経緯 - SkyleafBlog</title>
+    <title>業務で解消したOracleエラーを振り返る - SkyleafBlog</title>
 
     <!-- Tachyons Core CSS -->
     <link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
@@ -117,8 +116,8 @@
     <!-- Title -->
     <div class="w-100 mw8 center vh-40 dt">
         <div class="dtc v-mid white">
-            <h1 class="f1-l f2-m tc tc-m tl-ns">ブログ開設の経緯</h1>
-            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2021-01-15</p>
+            <h1 class="f1-l f2-m tc tc-m tl-ns">業務で解消したOracleエラーを振り返る</h1>
+            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2021-02-04</p>
         </div>
     </div>
 
@@ -138,15 +137,40 @@
                     
 
                     <!-- Main Post Content -->
-                    <h2 id="ブログ開設の経緯"><a href="#ブログ開設の経緯" class="headerlink" title="ブログ開設の経緯"></a>ブログ開設の経緯</h2><p>会社を通してブログを始めるまでの経緯を説明します。</p>
-<p>まず、身になる勉強をするために、アウトプットを増やしたいと考えました。<br>勉強内容の整理をして記事執筆を行うことで、以下のメリットが得られます。</p>
-<ul>
-<li>文書作成、情報伝達の練習</li>
-<li>内容のより深い理解</li>
+                    <h2 id="はじめに"><a href="#はじめに" class="headerlink" title="はじめに"></a>はじめに</h2><p>最近の業務で解消したOracleエラーを振り返ります。</p>
+<h2 id="Oracleのバージョン"><a href="#Oracleのバージョン" class="headerlink" title="Oracleのバージョン"></a>Oracleのバージョン</h2><p>12c</p>
+<h2 id="エラーコード"><a href="#エラーコード" class="headerlink" title="エラーコード"></a>エラーコード</h2><h3 id="ORA-00054"><a href="#ORA-00054" class="headerlink" title="ORA-00054"></a>ORA-00054</h3><ul>
+<li><p>詳細</p>
+<blockquote>
+<p>ORA-00054: resource busy and acquire with NOWAIT specified or timeout expired<br>Cause: Interested resource is busy.<br>Action: Retry if necessary or increase timeout.<br>（翻訳）<br>ORA-00054: リソースがビジー状態で、NOWAITが指定されているか、タイムアウトが切れている状態で取得しました。<br>原因: リソースがビジー状態です。<br>アクション: 必要に応じて再試行するか、タイムアウトを増やしてください。</p>
+</blockquote>
+</li>
+<li><p>直接的な原因<br>原因は、TRUNCATE TABLEを実行するときに前のトランザクションが終了していなかったことです。前のトランザクションが終了していなかった原因は、パフォーマンスの悪いSELECT文で数万件のレコードを処理しようとしたことです。</p>
+</li>
+<li><p>対処<br>SELECT文のパフォーマンスを改善しました。</p>
+</li>
 </ul>
-<p>会社を通すことで、執筆内容の質を担保する必然性が生まれます。<br>編集担当者の目も通すので、フィードバックも貰えます。</p>
-<p>以上のことから、“読んでも書いても学びに繋がる”をコンセプトに、ブログ運営を始めます。</p>
-<p>社員M</p>
+<h3 id="ORA-01861"><a href="#ORA-01861" class="headerlink" title="ORA-01861"></a>ORA-01861</h3><ul>
+<li><p>詳細</p>
+<blockquote>
+<p>ORA-01861: literal does not match format string<br>Cause: Literals in the input must be the same length as literals in the format string (with the exception of leading whitespace). If the “FX” modifier has been toggled on, the literal must match exactly, with no extra whitespace.<br>Action: Correct the format string to match the literal.<br>（翻訳）<br>ORA-01861: リテラルがフォーマット文字列と一致しない<br>原因: 入力のリテラルは、フォーマット文字列のリテラルと同じ長さでなければなりません（先頭の空白を除いて）。FX” 修飾子がトグルされている場合、リテラルは正確に一致しなければなりません。<br>アクション: フォーマット文字列をリテラルと一致するように修正します。</p>
+</blockquote>
+</li>
+<li><p>直接的な原因<br>原因は、1つのSELECT文の中で、TO_DATE関数に日付書式を指定がある場合とない場合が混在していたことでした。日付書式の指定がない場合には、暗黙の型変換が行われ、日付書式を指定した場合とは別の書式が設定されていました。</p>
+</li>
+<li><p>対処<br>SELECT文中のすべてのTO_DATE関数使用時に、日付書式を指定するようにしました。</p>
+</li>
+</ul>
+<h3 id="ORA-00933"><a href="#ORA-00933" class="headerlink" title="ORA-00933"></a>ORA-00933</h3><ul>
+<li>詳細<blockquote>
+<p>ORA-00933: SQL command not properly ended<br>（翻訳）<br>ORA-00933. SQLコマンドが正しく終了しない</p>
+</blockquote>
+</li>
+<li>直接的な原因<br>原因は、SQL文をJavaのプロパティファイルに記載するためにDBViewerで非整形文にした後、末尾の”;”を削除し忘れたことです。末尾に’;’があると、環境によってはエラーが発生します。エラーは例えばSQL文をODBCから呼び出して使う際に発生します。SQL文をSQL*PlusやDBViewerから直接実行するときは発生しません。</li>
+<li>対処<br>末尾の’;’を削除しました。</li>
+</ul>
+<h2 id="最後に"><a href="#最後に" class="headerlink" title="最後に"></a>最後に</h2><p>Oracleのエラーは環境によって発生有無が変化するので注意が必要です。<br>エラーを振り返ることで、知識に肉付けができます。</p>
+<h2 id="参考資料"><a href="#参考資料" class="headerlink" title="参考資料"></a>参考資料</h2><p><a target="_blank" rel="noopener" href="https://docs.oracle.com/cd/E82638_01/errmg/index.html">https://docs.oracle.com/cd/E82638_01/errmg/index.html</a></p>
 
                     
                     <!-- Tags Bottom -->
